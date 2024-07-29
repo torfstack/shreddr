@@ -1,12 +1,29 @@
 'use client'
 
-import {EBRegularSlinky, EBSuperSlinky, TunedGuitarString, TunedGuitarStringSet} from "@/types/string";
+import {
+    EBPowerSlinky,
+    EBRegularSlinky,
+    EBSkinnyTopHeavyBottom,
+    EBSuperSlinky,
+    Gauges,
+    TunedGuitarString,
+    TunedGuitarStringSet
+} from "@/types/string";
 import {useState} from "react";
-import {MenuItem, Select} from "@mui/material";
-import {SixDropDTuning, SixStandardTuning} from "@/types/music";
+import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {
+    MusicalNotes,
+    SixDropCTuning,
+    SixDropDTuning,
+    SixStandardDTuning,
+    SixStandardETuning,
+} from "@/types/music";
 
 function TunableGuitarString({gauge, note}: TunedGuitarString) {
-    return <p>{note}          {gauge}</p>
+    return <p>
+        <Button>-</Button>  {note}  <Button>+</Button>
+        <Button>-</Button>  {gauge}  <Button>+</Button>
+    </p>
 }
 
 export function Strings({strings, tuning}: TunedGuitarStringSet){
@@ -22,31 +39,44 @@ export function Strings({strings, tuning}: TunedGuitarStringSet){
     }
 
     return (
-        <>
-            <Select
-                labelId="select gauges"
-                label="Gauges"
-                value={chosenStrings}
-                onChange={handleGaugeChange}>
+        <div>
+            <FormControl sx={{m: 1, minWidth: 240}} size="small">
+                <InputLabel id="select-gauges-label">Gauges</InputLabel>
+                <Select
+                    labelId="select-gauges-label"
+                    id="select-gauges"
+                    label="Gauges"
+                    value={chosenStrings}
+                    onChange={handleGaugeChange}>
 
-                <MenuItem value={EBRegularSlinky}>Regular Slinky (10 - 46)</MenuItem>
-                <MenuItem value={EBSuperSlinky}>Super Slinky (9 - 42)</MenuItem>
-            </Select>
+                    <MenuItem value={EBRegularSlinky}>{EBRegularSlinky}</MenuItem>
+                    <MenuItem value={EBSuperSlinky}>{EBSuperSlinky}</MenuItem>
+                    <MenuItem value={EBPowerSlinky}>{EBPowerSlinky}</MenuItem>
+                    <MenuItem value={EBSkinnyTopHeavyBottom}>{EBSkinnyTopHeavyBottom}</MenuItem>
 
-            <Select
-                labelId="select tuning"
-                label="Tuning"
-                value={chosenTuning}
-                onChange={handleTuningChange}>
+                </Select>
+            </FormControl>
 
-                <MenuItem value={SixStandardTuning}>Standard</MenuItem>
-                <MenuItem value={SixDropDTuning}>DropD</MenuItem>
-            </Select>
+            <FormControl sx={{m: 1, minWidth: 240}} size="small">
+                <InputLabel id="select-tuning-label">Tuning</InputLabel>
+                <Select
+                    labelId="select-tuning-label"
+                    id="select-tuning"
+                    label="Tuning"
+                    value={chosenTuning}
+                    onChange={handleTuningChange}>
 
-            {chosenStrings.map((string, index) => (
-                <TunableGuitarString key={index} gauge={string.gauge} note={chosenTuning[index]}/>
+                    <MenuItem value={SixStandardETuning}>{SixStandardETuning}</MenuItem>
+                    <MenuItem value={SixDropDTuning}>{SixDropDTuning}</MenuItem>
+                    <MenuItem value={SixStandardDTuning}>{SixStandardDTuning}</MenuItem>
+                    <MenuItem value={SixDropCTuning}>{SixDropCTuning}</MenuItem>
+                </Select>
+            </FormControl>
+
+            {Gauges(chosenStrings).map((string, index) => (
+                <TunableGuitarString key={index} gauge={string.gauge} note={MusicalNotes(chosenTuning)[index]}/>
             ))}
-        </>
+        </div>
     );
 }
 
