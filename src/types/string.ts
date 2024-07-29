@@ -1,4 +1,4 @@
-import {Note, Tuning} from "@/types/music";
+import {MusicalNote, Tuning} from "@/types/music";
 
 export type TunedGuitarStringSet = {
     strings: GuitarStringSet,
@@ -7,7 +7,7 @@ export type TunedGuitarStringSet = {
 
 export type TunedGuitarString = {
     gauge: Gauge,
-    note: Note
+    note: MusicalNote
 }
 
 export type GuitarString = {
