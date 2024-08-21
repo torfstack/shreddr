@@ -10,7 +10,7 @@ import {
     TunedGuitarStringSet
 } from "@/types/string";
 import {useState} from "react";
-import {Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent} from "@mui/material";
+import {Button, Grid, FormControl, InputLabel, MenuItem, Select, Box} from "@mui/material";
 import {
     MusicalNotes,
     SixDropCTuning,
@@ -20,10 +20,10 @@ import {
 } from "@/types/music";
 
 function TunableGuitarString({gauge, note}: TunedGuitarString) {
-    return <p>
+    return <Box>
         <Button>-</Button>  {note}  <Button>+</Button>
         <Button>-</Button>  {gauge}  <Button>+</Button>
-    </p>
+    </Box>
 }
 
 export function Strings({strings, tuning}: TunedGuitarStringSet){
@@ -47,7 +47,8 @@ export function Strings({strings, tuning}: TunedGuitarStringSet){
                     id="select-gauges"
                     label="Gauges"
                     value={chosenStrings}
-                    onChange={handleGaugeChange}>
+                    onChange={handleGaugeChange}
+                    variant="outlined">
 
                     <MenuItem value={EBRegularSlinky}>{EBRegularSlinky}</MenuItem>
                     <MenuItem value={EBSuperSlinky}>{EBSuperSlinky}</MenuItem>
@@ -64,7 +65,8 @@ export function Strings({strings, tuning}: TunedGuitarStringSet){
                     id="select-tuning"
                     label="Tuning"
                     value={chosenTuning}
-                    onChange={handleTuningChange}>
+                    onChange={handleTuningChange}
+                    variant="outlined">
 
                     <MenuItem value={SixStandardETuning}>{SixStandardETuning}</MenuItem>
                     <MenuItem value={SixDropDTuning}>{SixDropDTuning}</MenuItem>
@@ -73,9 +75,18 @@ export function Strings({strings, tuning}: TunedGuitarStringSet){
                 </Select>
             </FormControl>
 
-            {Gauges(chosenStrings).map((string, index) => (
-                <TunableGuitarString key={index} gauge={string.gauge} note={MusicalNotes(chosenTuning)[index]}/>
-            ))}
+
+            <Grid
+                container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+            >
+                {Gauges(chosenStrings).map((string, index) => (
+                    <TunableGuitarString key={index} gauge={string.gauge} note={MusicalNotes(chosenTuning)[index]}/>
+                ))}
+            </Grid>
         </div>
     );
 }
