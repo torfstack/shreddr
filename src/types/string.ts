@@ -1,69 +1,72 @@
-import {MusicalNote, Tuning} from "@/types/music";
-
-export type TunedGuitarStringSet = {
-    strings: GuitarStringSet,
-    tuning: Tuning
-}
-
-export type TunedGuitarString = {
-    gauge: Gauge,
-    note: MusicalNote
-}
-
 export type GuitarString = {
-    gauge: Gauge
+    gauge: number
+    plain: boolean
 }
 
-export type Gauge = number
+export type GuitarStringSet = {
+    name: string
+    strings: GuitarString[]
+}
 
-export const EBRegularSlinky = "Regular Slinky (10 - 46)"
-export const EBSuperSlinky = "Super Slinky (9 - 42)"
-export const EBPowerSlinky = "Power Slinky (11 - 48)"
-export const EBSkinnyTopHeavyBottom = "Skinny Top Heavy Bottom (10 - 52)"
+export const EBRegularSlinky: GuitarStringSet = {
+    name: "Regular Slinky (10 - 46)",
+    strings: [
+        {gauge: 10, plain: true},
+        {gauge: 13, plain: true},
+        {gauge: 17, plain: true},
+        {gauge: 26, plain: false},
+        {gauge: 36, plain: false},
+        {gauge: 46, plain: false}
+    ]
+}
 
-export type GuitarStringSet =
-    typeof EBRegularSlinky |
-    typeof EBSuperSlinky |
-    typeof EBPowerSlinky |
-    typeof EBSkinnyTopHeavyBottom
+export const EBSuperSlinky: GuitarStringSet = {
+    name: "Super Slinky (9 - 42)",
+    strings: [
+        {gauge: 9, plain: true},
+        {gauge: 11, plain: true},
+        {gauge: 16, plain: true},
+        {gauge: 24, plain: false},
+        {gauge: 32, plain: false},
+        {gauge: 42, plain: false}
+    ]
+}
 
-export function Gauges(stringSet: GuitarStringSet): GuitarString[] {
-    switch (stringSet) {
-        case EBRegularSlinky:
-            return [
-                {gauge: 10},
-                {gauge: 13},
-                {gauge: 17},
-                {gauge: 26},
-                {gauge: 36},
-                {gauge: 46}
-            ]
-        case EBSuperSlinky:
-            return [
-                {gauge: 9},
-                {gauge: 11},
-                {gauge: 16},
-                {gauge: 24},
-                {gauge: 32},
-                {gauge: 42}
-            ]
-        case EBPowerSlinky:
-            return [
-                {gauge: 11},
-                {gauge: 14},
-                {gauge: 18},
-                {gauge: 28},
-                {gauge: 38},
-                {gauge: 48}
-            ]
-        case EBSkinnyTopHeavyBottom:
-            return [
-                {gauge: 10},
-                {gauge: 13},
-                {gauge: 17},
-                {gauge: 30},
-                {gauge: 42},
-                {gauge: 52}
-            ]
+export const EBPowerSlinky: GuitarStringSet = {
+    name: "Power Slinky (11 - 48)",
+    strings: [
+        {gauge: 11, plain: true},
+        {gauge: 14, plain: true},
+        {gauge: 18, plain: true},
+        {gauge: 28, plain: false},
+        {gauge: 38, plain: false},
+        {gauge: 48, plain: false}
+    ]
+}
+
+export const EBSkinnyTopHeavyBottom: GuitarStringSet = {
+    name: "Skinny Top Heavy Bottom (10 - 52)",
+    strings: [
+        {gauge: 10, plain: true},
+        {gauge: 13, plain: true},
+        {gauge: 17, plain: true},
+        {gauge: 28, plain: false},
+        {gauge: 38, plain: false},
+        {gauge: 52, plain: false}
+    ]
+}
+
+export function guitarStringSetFrom(name: string): GuitarStringSet {
+    switch (name) {
+        case EBRegularSlinky.name:
+            return EBRegularSlinky
+        case EBSuperSlinky.name:
+            return EBSuperSlinky
+        case EBPowerSlinky.name:
+            return EBPowerSlinky
+        case EBSkinnyTopHeavyBottom.name:
+            return EBSkinnyTopHeavyBottom
+        default:
+            return EBRegularSlinky
     }
 }
