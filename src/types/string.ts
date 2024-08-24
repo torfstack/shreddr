@@ -56,17 +56,15 @@ export const EBSkinnyTopHeavyBottom: GuitarStringSet = {
     ]
 }
 
+export const AllStringSets = [
+    EBRegularSlinky,
+    EBSuperSlinky,
+    EBPowerSlinky,
+    EBSkinnyTopHeavyBottom,
+]
+
 export function guitarStringSetFrom(name: string): GuitarStringSet {
-    switch (name) {
-        case EBRegularSlinky.name:
-            return EBRegularSlinky
-        case EBSuperSlinky.name:
-            return EBSuperSlinky
-        case EBPowerSlinky.name:
-            return EBPowerSlinky
-        case EBSkinnyTopHeavyBottom.name:
-            return EBSkinnyTopHeavyBottom
-        default:
-            return EBRegularSlinky
-    }
+    return AllStringSets.find((set) => set.name === name) || EBRegularSlinky
 }
+
+export const CustomStringSetName = "Custom Set"

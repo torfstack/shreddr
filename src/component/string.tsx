@@ -1,6 +1,7 @@
 'use client'
 
 import {
+    AllStringSets, CustomStringSetName,
     EBPowerSlinky,
     EBRegularSlinky,
     EBSkinnyTopHeavyBottom,
@@ -17,7 +18,7 @@ import {
     Stack
 } from "@mui/material";
 import {
-    AllNotes, customTuning,
+    AllNotes, AllTunings, customTuning, CustomTuningName,
     MusicalNote, noteFrom,
     SixDropCTuning,
     SixDropDTuning,
@@ -53,6 +54,7 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
     }
 
     function TunableGuitarString({gauge, note, index}: {gauge: number, note: MusicalNote, index: number}) {
+        const reverseIndex = chosenStrings.strings.length - index - 1
         return <>
             <ListItem>
                 <InputLabel sx={{fontSize: 20}}>{gauge}</InputLabel>
@@ -61,7 +63,7 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                         label={gauge.toString()}
                         variant="standard"
                         value={note.name}
-                        onChange={handleNoteChange(chosenStrings.strings.length - index - 1)}
+                        onChange={handleNoteChange(reverseIndex)}
                         inputProps={{style: {fontSize: 20}}}
                     >
                         {AllNotes.map((note, index) => (
@@ -115,11 +117,10 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                             onChange={handleGaugeChange}
                             variant="filled">
 
-                            <MenuItem value="Custom"><em>Custom Set</em></MenuItem>
-                            <MenuItem value={EBRegularSlinky.name}>{EBRegularSlinky.name}</MenuItem>
-                            <MenuItem value={EBSuperSlinky.name}>{EBSuperSlinky.name}</MenuItem>
-                            <MenuItem value={EBPowerSlinky.name}>{EBPowerSlinky.name}</MenuItem>
-                            <MenuItem value={EBSkinnyTopHeavyBottom.name}>{EBSkinnyTopHeavyBottom.name}</MenuItem>
+                            <MenuItem value={CustomStringSetName}><em>{CustomStringSetName}</em></MenuItem>
+                            {AllStringSets.map((stringSet, index) => (
+                                <MenuItem key={index} value={stringSet.name}>{stringSet.name}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
 
@@ -133,11 +134,10 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                             onChange={handleTuningChange}
                             variant="filled">
 
-                            <MenuItem value="Custom"><em>Custom Tuning</em></MenuItem>
-                            <MenuItem value={SixStandardETuning.name}>{SixStandardETuning.name}</MenuItem>
-                            <MenuItem value={SixDropDTuning.name}>{SixDropDTuning.name}</MenuItem>
-                            <MenuItem value={SixStandardDTuning.name}>{SixStandardDTuning.name}</MenuItem>
-                            <MenuItem value={SixDropCTuning.name}>{SixDropCTuning.name}</MenuItem>
+                            <MenuItem value={CustomTuningName}><em>{CustomTuningName}</em></MenuItem>
+                            {AllTunings.map((tuning, index) => (
+                                <MenuItem key={index} value={tuning.name}>{tuning.name}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                 </Stack>

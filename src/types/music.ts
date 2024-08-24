@@ -115,126 +115,20 @@ export const AllNotes = [
 ]
 
 export function noteFrom(name: string): MusicalNote {
-    switch (name) {
-        case MusicalNoteC0.name:
-            return MusicalNoteC0
-        case MusicalNoteCSharp0.name:
-            return MusicalNoteCSharp0
-        case MusicalNoteD0.name:
-            return MusicalNoteD0
-        case MusicalNoteDSharp0.name:
-            return MusicalNoteDSharp0
-        case MusicalNoteE0.name:
-            return MusicalNoteE0
-        case MusicalNoteF0.name:
-            return MusicalNoteF0
-        case MusicalNoteFSharp0.name:
-            return MusicalNoteFSharp0
-        case MusicalNoteG0.name:
-            return MusicalNoteG0
-        case MusicalNoteGSharp0.name:
-            return MusicalNoteGSharp0
-        case MusicalNoteA0.name:
-            return MusicalNoteA0
-        case MusicalNoteASharp0.name:
-            return MusicalNoteASharp0
-        case MusicalNoteB0.name:
-            return MusicalNoteB0
-        case MusicalNoteC1.name:
-            return MusicalNoteC1
-        case MusicalNoteCSharp1.name:
-            return MusicalNoteCSharp1
-        case MusicalNoteD1.name:
-            return MusicalNoteD1
-        case MusicalNoteDSharp1.name:
-            return MusicalNoteDSharp1
-        case MusicalNoteE1.name:
-            return MusicalNoteE1
-        case MusicalNoteF1.name:
-            return MusicalNoteF1
-        case MusicalNoteFSharp1.name:
-            return MusicalNoteFSharp1
-        case MusicalNoteG1.name:
-            return MusicalNoteG1
-        case MusicalNoteGSharp1.name:
-            return MusicalNoteGSharp1
-        case MusicalNoteA1.name:
-            return MusicalNoteA1
-        case MusicalNoteASharp1.name:
-            return MusicalNoteASharp1
-        case MusicalNoteB1.name:
-            return MusicalNoteB1
-        case MusicalNoteC2.name:
-            return MusicalNoteC2
-        case MusicalNoteCSharp2.name:
-            return MusicalNoteCSharp2
-        case MusicalNoteD2.name:
-            return MusicalNoteD2
-        case MusicalNoteDSharp2.name:
-            return MusicalNoteDSharp2
-        case MusicalNoteE2.name:
-            return MusicalNoteE2
-        case MusicalNoteF2.name:
-            return MusicalNoteF2
-        case MusicalNoteFSharp2.name:
-            return MusicalNoteFSharp2
-        case MusicalNoteG2.name:
-            return MusicalNoteG2
-        case MusicalNoteGSharp2.name:
-            return MusicalNoteGSharp2
-        case MusicalNoteA2.name:
-            return MusicalNoteA2
-        case MusicalNoteASharp2.name:
-            return MusicalNoteASharp2
-        case MusicalNoteB2.name:
-            return MusicalNoteB2
-        case MusicalNoteC3.name:
-            return MusicalNoteC3
-        case MusicalNoteCSharp3.name:
-            return MusicalNoteCSharp3
-        case MusicalNoteD3.name:
-            return MusicalNoteD3
-        case MusicalNoteDSharp3.name:
-            return MusicalNoteDSharp3
-        case MusicalNoteE3.name:
-            return MusicalNoteE3
-        case MusicalNoteF3.name:
-            return MusicalNoteF3
-        case MusicalNoteFSharp3.name:
-            return MusicalNoteFSharp3
-        case MusicalNoteG3.name:
-            return MusicalNoteG3
-        case MusicalNoteGSharp3.name:
-            return MusicalNoteGSharp3
-        case MusicalNoteA3.name:
-            return MusicalNoteA3
-        case MusicalNoteASharp3.name:
-            return MusicalNoteASharp3
-        case MusicalNoteB3.name:
-            return MusicalNoteB3
-        case MusicalNoteC4.name:
-            return MusicalNoteC4
-        case MusicalNoteCSharp4.name:
-            return MusicalNoteCSharp4
-        case MusicalNoteD4.name:
-            return MusicalNoteD4
-        case MusicalNoteDSharp4.name:
-            return MusicalNoteDSharp4
-        case MusicalNoteE4.name:
-            return MusicalNoteE4
-        default:
-            throw new Error(`Unknown musical note: ${name}`)
-    }
+    return AllNotes.find(note => note.name === name) || MusicalNoteE4
 }
+
 
 export type Tuning = {
     name: string
     notes: MusicalNote[]
 }
 
+export const CustomTuningName = "Custom Tuning"
+
 export function customTuning(notes: MusicalNote[]): Tuning {
     return {
-        name: "Custom",
+        name: CustomTuningName,
         notes: notes
     }
 }
@@ -269,22 +163,16 @@ export const SevenDropATuning: Tuning = {
     notes: [MusicalNoteA1, MusicalNoteE2, MusicalNoteA2, MusicalNoteD3, MusicalNoteG3, MusicalNoteB3, MusicalNoteE4]
 }
 
+export const AllTunings = [
+    SixStandardETuning,
+    SixDropDTuning,
+    SixStandardDTuning,
+    SixDropCTuning,
+    SevenStandardTuning,
+    SevenDropATuning
+]
+
 export function tuningFrom(name: string): Tuning {
-    switch (name) {
-        case SixStandardETuning.name:
-            return SixStandardETuning
-        case SixDropDTuning.name:
-            return SixDropDTuning
-        case SixStandardDTuning.name:
-            return SixStandardDTuning
-        case SixDropCTuning.name:
-            return SixDropCTuning
-        case SevenStandardTuning.name:
-            return SevenStandardTuning
-        case SevenDropATuning.name:
-            return SevenDropATuning
-        default:
-            return SixStandardETuning
-    }
+    return AllTunings.find(tuning => tuning.name === name) || SixStandardETuning
 }
 
