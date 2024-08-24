@@ -134,7 +134,7 @@ export function customTuning(notes: MusicalNote[]): Tuning {
 }
 
 export const SixStandardETuning: Tuning = {
-    name: "Standard (EADGBE)",
+    name: "Standard E (EADGBE)",
     notes: [MusicalNoteE2, MusicalNoteA2, MusicalNoteD3, MusicalNoteG3, MusicalNoteB3, MusicalNoteE4]
 }
 
@@ -153,8 +153,8 @@ export const SixDropCTuning: Tuning = {
     notes: [MusicalNoteC2, MusicalNoteG2, MusicalNoteC3, MusicalNoteF3, MusicalNoteA3, MusicalNoteD4]
 }
 
-export const SevenStandardTuning: Tuning = {
-    name: "Standard 7 (BEADGBE)",
+export const SevenStandardBTuning: Tuning = {
+    name: "Standard 7 B (BEADGBE)",
     notes: [MusicalNoteB1, MusicalNoteE2, MusicalNoteA2, MusicalNoteD3, MusicalNoteG3, MusicalNoteB3, MusicalNoteE4]
 }
 
@@ -163,16 +163,35 @@ export const SevenDropATuning: Tuning = {
     notes: [MusicalNoteA1, MusicalNoteE2, MusicalNoteA2, MusicalNoteD3, MusicalNoteG3, MusicalNoteB3, MusicalNoteE4]
 }
 
+export const EightStandardFSharpTuning: Tuning = {
+    name: "Standard 8 F# (F#BEADGBE)",
+    notes: [MusicalNoteFSharp1, MusicalNoteB1, MusicalNoteE2, MusicalNoteA2, MusicalNoteD3, MusicalNoteG3, MusicalNoteB3, MusicalNoteE4]
+}
+
 export const AllTunings = [
     SixStandardETuning,
     SixDropDTuning,
     SixStandardDTuning,
     SixDropCTuning,
-    SevenStandardTuning,
-    SevenDropATuning
+    SevenStandardBTuning,
+    SevenDropATuning,
+    EightStandardFSharpTuning
 ]
 
 export function tuningFrom(name: string): Tuning {
     return AllTunings.find(tuning => tuning.name === name) || SixStandardETuning
+}
+
+export function defaultTuningOfLength(length: number): Tuning {
+    switch (length) {
+        case 6:
+            return SixStandardETuning
+        case 7:
+            return SevenStandardBTuning
+        case 8:
+            return EightStandardFSharpTuning
+        default:
+            return SixStandardETuning
+    }
 }
 

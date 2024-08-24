@@ -1,11 +1,8 @@
 'use client'
 
 import {
-    AllStringSets, CustomStringSetName,
-    EBPowerSlinky,
-    EBRegularSlinky,
-    EBSkinnyTopHeavyBottom,
-    EBSuperSlinky, GuitarStringSet, guitarStringSetFrom,
+    AllStringSets, CustomStringSetName, defaultStringSetOfLength,
+    GuitarStringSet, guitarStringSetFrom,
 } from "@/types/string";
 import {useState} from "react";
 import {
@@ -18,12 +15,9 @@ import {
     Stack
 } from "@mui/material";
 import {
-    AllNotes, AllTunings, customTuning, CustomTuningName,
+    AllNotes, AllTunings, customTuning, CustomTuningName, defaultTuningOfLength,
     MusicalNote, noteFrom,
-    SixDropCTuning,
-    SixDropDTuning,
-    SixStandardDTuning,
-    SixStandardETuning, Tuning, tuningFrom,
+    Tuning, tuningFrom,
 } from "@/types/music";
 
 export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuning: Tuning}) {
@@ -31,11 +25,25 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
     const [chosenTuning, setChosenTuning] = useState(tuning)
 
     function handleTuningChange(event: any) {
-        setChosenTuning(tuningFrom(event.target.value))
+        const newTuning = tuningFrom(event.target.value)
+        setChosenTuning(newTuning)
+        setChosenStrings((currentStrings: GuitarStringSet) => {
+            if (currentStrings.strings.length != newTuning.notes.length) {
+                return defaultStringSetOfLength(newTuning.notes.length)
+            }
+            return currentStrings
+        })
     }
 
     function handleGaugeChange(event: any) {
-        setChosenStrings(guitarStringSetFrom(event.target.value))
+        const newStringSet = guitarStringSetFrom(event.target.value)
+        setChosenStrings(newStringSet)
+        setChosenTuning((currentTuning: Tuning) => {
+            if (currentTuning.notes.length != newStringSet.strings.length) {
+                return defaultTuningOfLength(newStringSet.strings.length)
+            }
+            return currentTuning
+        })
     }
 
     function handleNoteChange(index: number): (event: any) => void {
@@ -99,13 +107,12 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
         <>
             <Stack
                 direction={{ sm: 'row', xs: 'column' }}
-                alignItems="center"
+                alignItems="start"
                 spacing={2}
             >
                 <Stack
                     direction="column"
                     alignItems="center"
-                    justifyContent="center"
                 >
                     <FormControl sx={{m: 2, p: 2, minWidth: 300, maxWidth: 320}} size="small">
                         <InputLabel id="select-gauges-label">Gauges</InputLabel>

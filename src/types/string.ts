@@ -56,11 +56,40 @@ export const EBSkinnyTopHeavyBottom: GuitarStringSet = {
     ]
 }
 
+export const EB7RegularSlinky: GuitarStringSet = {
+    name: "Regular Slinky 7 (10 - 56)",
+    strings: [
+        {gauge: 56, plain: false},
+        {gauge: 46, plain: false},
+        {gauge: 36, plain: false},
+        {gauge: 26, plain: false},
+        {gauge: 17, plain: true},
+        {gauge: 13, plain: true},
+        {gauge: 10, plain: true},
+    ]
+}
+
+export const EB8RegularSlinky: GuitarStringSet = {
+    name: "Regular Slinky 8 (10 - 74)",
+    strings: [
+        {gauge: 74, plain: false},
+        {gauge: 58, plain: false},
+        {gauge: 44, plain: false},
+        {gauge: 32, plain: false},
+        {gauge: 24, plain: false},
+        {gauge: 16.5, plain: true},
+        {gauge: 13, plain: true},
+        {gauge: 10, plain: true},
+    ]
+}
+
 export const AllStringSets = [
     EBRegularSlinky,
     EBSuperSlinky,
     EBPowerSlinky,
     EBSkinnyTopHeavyBottom,
+    EB7RegularSlinky,
+    EB8RegularSlinky,
 ]
 
 export function guitarStringSetFrom(name: string): GuitarStringSet {
@@ -68,3 +97,16 @@ export function guitarStringSetFrom(name: string): GuitarStringSet {
 }
 
 export const CustomStringSetName = "Custom Set"
+
+export function defaultStringSetOfLength(length: number): GuitarStringSet {
+    switch (length) {
+        case 6:
+            return EBRegularSlinky
+        case 7:
+            return EB7RegularSlinky
+        case 8:
+            return EB8RegularSlinky
+        default:
+            return EBRegularSlinky
+    }
+}
