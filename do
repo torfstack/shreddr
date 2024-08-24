@@ -22,6 +22,21 @@ check_installed() {
   fi
 }
 
+inc_version() {
+  version=$(cat version)
+
+  major=$(echo "$version" | cut -d. -f1)
+  minor=$(echo "$version" | cut -d. -f2)
+  patch=$(echo "$version" | cut -d. -f3)
+
+  patch=$((patch + 1))
+  newVersion=$major.$minor.$patch
+
+  echo "$newVersion" > version
+  sed -i "s/$version/$newVersion/" deployment/values.yaml
+  sed -i "s/$version/$newVersion/" deployment/Chart.yaml
+}
+
 start() {
     case "$1" in
       build)
@@ -29,6 +44,9 @@ start() {
         ;;
       deploy)
         deploy
+        ;;
+      inc-version)
+        inc_version
         ;;
       *)
         echo "Usage: do [build]"
