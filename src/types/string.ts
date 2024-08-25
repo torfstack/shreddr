@@ -1,3 +1,5 @@
+import _ from "lodash-es";
+
 export type GuitarString = {
     gauge: number
     plain: boolean
@@ -83,14 +85,22 @@ export const EB8RegularSlinky: GuitarStringSet = {
     ]
 }
 
-export const AllStringSets = [
+export const AllSixStringSets = [
     EBRegularSlinky,
     EBSuperSlinky,
     EBPowerSlinky,
     EBSkinnyTopHeavyBottom,
+]
+
+export const AllSevenStringSets = [
     EB7RegularSlinky,
+]
+
+export const AllEightStringSets = [
     EB8RegularSlinky,
 ]
+
+export const AllStringSets = _.concat(AllSixStringSets, AllSevenStringSets, AllEightStringSets)
 
 export function guitarStringSetFrom(name: string): GuitarStringSet {
     return AllStringSets.find((set) => set.name === name) || EBRegularSlinky

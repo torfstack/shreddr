@@ -1,6 +1,8 @@
 'use client'
 
 import {
+    AllEightStringSets, AllSevenStringSets,
+    AllSixStringSets,
     AllStringSets, CustomStringSetName, defaultStringSetOfLength,
     GuitarStringSet, guitarStringSetFrom,
 } from "@/types/string";
@@ -12,10 +14,11 @@ import {
     Select,
     ListItem,
     List,
-    Stack
+    Stack, ListSubheader
 } from "@mui/material";
 import {
-    AllNotes, AllTunings, CustomTuningName, defaultTuningOfLength,
+    AllEightStringTunings,
+    AllNotes, AllSevenStringTunings, AllSixStringTunings, AllTunings, CustomTuningName, defaultTuningOfLength,
     MusicalNote, noteFrom,
     Tuning, tuningFromName, tuningFromNotes,
 } from "@/types/music";
@@ -125,7 +128,16 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                             variant="filled">
 
                             <MenuItem value={CustomStringSetName}><em>{CustomStringSetName}</em></MenuItem>
-                            {AllStringSets.map((stringSet, index) => (
+                            <ListSubheader>6 String</ListSubheader>
+                            {AllSixStringSets.map((stringSet, index) => (
+                                <MenuItem key={index} value={stringSet.name}>{stringSet.name}</MenuItem>
+                            ))}
+                            <ListSubheader>7 String</ListSubheader>
+                            {AllSevenStringSets.map((stringSet, index) => (
+                                <MenuItem key={index} value={stringSet.name}>{stringSet.name}</MenuItem>
+                            ))}
+                            <ListSubheader>8 String</ListSubheader>
+                            {AllEightStringSets.map((stringSet, index) => (
                                 <MenuItem key={index} value={stringSet.name}>{stringSet.name}</MenuItem>
                             ))}
                         </Select>
@@ -142,7 +154,16 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                             variant="filled">
 
                             <MenuItem value={CustomTuningName}><em>{CustomTuningName}</em></MenuItem>
-                            {AllTunings.map((tuning, index) => (
+                            <ListSubheader>6 String</ListSubheader>
+                            {AllSixStringTunings.map((tuning, index) => (
+                                <MenuItem key={index} value={tuning.name}>{tuning.name}</MenuItem>
+                            ))}
+                            <ListSubheader>7 String</ListSubheader>
+                            {AllSevenStringTunings.map((tuning, index) => (
+                                <MenuItem key={index} value={tuning.name}>{tuning.name}</MenuItem>
+                            ))}
+                            <ListSubheader>8 String</ListSubheader>
+                            {AllEightStringTunings.map((tuning, index) => (
                                 <MenuItem key={index} value={tuning.name}>{tuning.name}</MenuItem>
                             ))}
                         </Select>

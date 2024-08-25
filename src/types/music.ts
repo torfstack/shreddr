@@ -160,15 +160,23 @@ export const EightStandardFSharpTuning: Tuning = {
     notes: [MusicalNoteFSharp1, MusicalNoteB1, MusicalNoteE2, MusicalNoteA2, MusicalNoteD3, MusicalNoteG3, MusicalNoteB3, MusicalNoteE4]
 }
 
-export const AllTunings = [
+export const AllSixStringTunings = [
     SixStandardETuning,
     SixDropDTuning,
     SixStandardDTuning,
     SixDropCTuning,
+]
+
+export const AllSevenStringTunings = [
     SevenStandardBTuning,
     SevenDropATuning,
+]
+
+export const AllEightStringTunings = [
     EightStandardFSharpTuning
 ]
+
+export const AllTunings = _.concat(AllSixStringTunings, AllSevenStringTunings, AllEightStringTunings)
 
 export const CustomTuningName = "Custom Tuning"
 
