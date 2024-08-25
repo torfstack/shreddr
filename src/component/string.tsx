@@ -22,6 +22,8 @@ import {
     MusicalNote, noteFrom,
     Tuning, tuningFromName, tuningFromNotes,
 } from "@/types/music";
+import {tensionOf} from "@/types/tension";
+import _ from "lodash-es";
 
 export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuning: Tuning}) {
     const [chosenStrings, setChosenStrings] = useState(stringSet)
@@ -87,6 +89,9 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                         ))}
                     </Select>
                 </FormControl>
+                <InputLabel sx={{fontSize: 20}}>
+                    {_.round(tensionOf(gauge, note, 25.5).value, 2)}
+                </InputLabel>
             </ListItem>
         </>
     }

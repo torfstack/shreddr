@@ -1,7 +1,6 @@
 import {MusicalNote} from "@/types/music";
-import {GuitarString} from "@/types/string";
 
-type Tension = {
+export type Tension = {
     unit: TensionUnit
     value: number
 }
@@ -35,9 +34,9 @@ function to(tension: Tension, unit: TensionUnit): Tension {
     return toPound(tension)
 }
 
-function tensionOf(string: GuitarString, note: MusicalNote, scaleLength: number): Tension {
+export function tensionOf(gauge: number, note: MusicalNote, scaleLength: number): Tension {
     const frequency = note.frequency
-    const mass = Math.pow(string.gauge / 1000, 2) * scaleLength
+    const mass = Math.pow(gauge / 1000, 2) * scaleLength
     const length = scaleLength
     const tension = Math.pow(frequency, 2) * mass
     return Tension('Newton', tension)
