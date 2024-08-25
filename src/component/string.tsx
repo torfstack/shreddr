@@ -3,7 +3,7 @@
 import {
     AllEightStringSets, AllSevenStringSets,
     AllSixStringSets,
-    AllStringSets, CustomStringSetName, defaultStringSetOfLength,
+    AllStringSets, CustomStringSetName, defaultStringSetOfLength, GuitarString,
     GuitarStringSet, guitarStringSetFrom,
 } from "@/types/string";
 import {useState} from "react";
@@ -66,14 +66,13 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
         }
     }
 
-    function TunableGuitarString({gauge, note, index}: {gauge: number, note: MusicalNote, index: number}) {
+    function TunableGuitarString({string, note, index}: {string: GuitarString, note: MusicalNote, index: number}) {
         const reverseIndex = chosenStrings.strings.length - index - 1
         return <>
             <ListItem>
-                <InputLabel sx={{fontSize: 20}}>{gauge}</InputLabel>
+                <InputLabel sx={{fontSize: 20}}>{string.gauge}</InputLabel>
                 <FormControl sx={{ m: 2, minWidth: 250}}>
                     <Select
-                        label={gauge.toString()}
                         variant="standard"
                         value={note.name}
                         onChange={handleNoteChange(reverseIndex)}
@@ -90,7 +89,7 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                     </Select>
                 </FormControl>
                 <InputLabel sx={{fontSize: 20}}>
-                    {_.round(tensionOf(gauge, note, 25.5).value, 2)}
+                    {_.round(tensionOf(string, note, 25.5).value, 2)}
                 </InputLabel>
             </ListItem>
         </>
@@ -102,7 +101,7 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                 {stringSet.strings.toReversed().map((string, index) => (
                     <TunableGuitarString
                         key={index}
-                        gauge={string.gauge}
+                        string={string}
                         note={tuning.notes.toReversed()[index]}
                         index={index}
                     />
