@@ -1,3 +1,5 @@
+import _ from 'lodash-es'
+
 export type MusicalNote = {
     name: string
     octave: number
@@ -118,19 +120,9 @@ export function noteFrom(name: string): MusicalNote {
     return AllNotes.find(note => note.name === name) || MusicalNoteE4
 }
 
-
 export type Tuning = {
     name: string
     notes: MusicalNote[]
-}
-
-export const CustomTuningName = "Custom Tuning"
-
-export function customTuning(notes: MusicalNote[]): Tuning {
-    return {
-        name: CustomTuningName,
-        notes: notes
-    }
 }
 
 export const SixStandardETuning: Tuning = {
@@ -178,8 +170,21 @@ export const AllTunings = [
     EightStandardFSharpTuning
 ]
 
-export function tuningFrom(name: string): Tuning {
+export const CustomTuningName = "Custom Tuning"
+
+function customTuning(notes: MusicalNote[]): Tuning {
+    return {
+        name: CustomTuningName,
+        notes: notes
+    }
+}
+
+export function tuningFromName(name: string): Tuning {
     return AllTunings.find(tuning => tuning.name === name) || SixStandardETuning
+}
+
+export function tuningFromNotes(notes: MusicalNote[]): Tuning {
+    return AllTunings.find(tuning => _.isEqual(tuning.notes, notes)) || customTuning(notes)
 }
 
 export function defaultTuningOfLength(length: number): Tuning {

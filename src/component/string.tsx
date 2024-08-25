@@ -15,9 +15,9 @@ import {
     Stack
 } from "@mui/material";
 import {
-    AllNotes, AllTunings, customTuning, CustomTuningName, defaultTuningOfLength,
+    AllNotes, AllTunings, CustomTuningName, defaultTuningOfLength,
     MusicalNote, noteFrom,
-    Tuning, tuningFrom,
+    Tuning, tuningFromName, tuningFromNotes,
 } from "@/types/music";
 
 export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuning: Tuning}) {
@@ -25,7 +25,7 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
     const [chosenTuning, setChosenTuning] = useState(tuning)
 
     function handleTuningChange(event: any) {
-        const newTuning = tuningFrom(event.target.value)
+        const newTuning = tuningFromName(event.target.value)
         setChosenTuning(newTuning)
         setChosenStrings((currentStrings: GuitarStringSet) => {
             if (currentStrings.strings.length != newTuning.notes.length) {
@@ -56,7 +56,7 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                     }
                     return note
                 })
-                return customTuning(newNotes)
+                return tuningFromNotes(newNotes)
             })
         }
     }
