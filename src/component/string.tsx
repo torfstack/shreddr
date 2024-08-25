@@ -14,7 +14,7 @@ import {
     Select,
     ListItem,
     List,
-    Stack, ListSubheader
+    Stack, ListSubheader, Typography
 } from "@mui/material";
 import {
     AllEightStringTunings,
@@ -22,7 +22,7 @@ import {
     MusicalNote, noteFrom,
     Tuning, tuningFromName, tuningFromNotes,
 } from "@/types/music";
-import {tensionOf} from "@/types/tension";
+import {tensionOf, tensionOfStrings} from "@/types/tension";
 import _ from "lodash-es";
 
 export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuning: Tuning}) {
@@ -175,6 +175,16 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                 </Stack>
 
                 <GuitarStrings stringSet={chosenStrings} tuning={chosenTuning} />
+
+                <Typography
+                    sx={{
+                        p: 2,
+                        fontSize: 20,
+                        fontWeight: 'light'
+                    }}
+                >
+                    Tension in Pound: {_.round(tensionOfStrings(chosenStrings.strings, chosenTuning.notes, 25.5).value, 2)}
+                </Typography>
             </Stack>
         </>
     );

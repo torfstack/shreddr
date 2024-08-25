@@ -42,4 +42,10 @@ export function tensionOf(string: GuitarString, note: MusicalNote, scaleLength: 
     return Tension(TensionUnitPound, tension)
 }
 
+export function tensionOfStrings(strings: GuitarString[], notes: MusicalNote[], scaleLength: number): Tension {
+    const tensions = strings.map((string, index) => tensionOf(string, notes[index], scaleLength))
+    const totalTension = tensions.reduce((total, tension) => total + tension.value, 0)
+    return Tension(TensionUnitPound, totalTension)
+}
+
 export {Tension, TensionUnitNewton, TensionUnitPound, toNewton, toPound, to}
