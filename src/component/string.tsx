@@ -14,7 +14,7 @@ import {
     Select,
     ListItem,
     List,
-    Stack, ListSubheader, Typography
+    Stack, ListSubheader, Typography, IconButton, TextField
 } from "@mui/material";
 import {
     AllEightStringTunings,
@@ -23,11 +23,14 @@ import {
     Tuning, tuningFromName, tuningFromNotes,
 } from "@/types/music";
 import {tensionOf, tensionOfStrings} from "@/types/tension";
+import PlusIcon from '@mui/icons-material/Add';
+import MinusIcon from '@mui/icons-material/Remove';
 import _ from "lodash-es";
 
 export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuning: Tuning}) {
     const [chosenStrings, setChosenStrings] = useState(stringSet)
     const [chosenTuning, setChosenTuning] = useState(tuning)
+    const [scaleLength, setScaleLength] = useState(25.5)
 
     function handleTuningChange(event: any) {
         const newTuning = tuningFromName(event.target.value)
@@ -66,6 +69,34 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
         }
     }
 
+    function ScaleLengthSelect() {
+        return <>
+            <Stack
+                direction="row"
+                spacing={2}
+                sx={{
+                    pt: 2,
+                    pl: 2
+                }}
+            >
+                <IconButton
+                    onClick={() => setScaleLength(scaleLength - 0.25)}
+                >
+                    <MinusIcon />
+                </IconButton>
+                <TextField
+                    label="Scale Length"
+                    value={scaleLength}
+                />
+                <IconButton
+                    onClick={() => setScaleLength(scaleLength + 0.25)}
+                >
+                    <PlusIcon />
+                </IconButton>
+            </Stack>
+        </>
+    }
+
     function TunableGuitarString({string, note, index}: {string: GuitarString, note: MusicalNote, index: number}) {
         const reverseIndex = chosenStrings.strings.length - index - 1
         return <>
@@ -89,7 +120,7 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                     </Select>
                 </FormControl>
                 <InputLabel sx={{fontSize: 20}}>
-                    {_.round(tensionOf(string, note, 25.5).value, 2)}
+                    {_.round(tensionOf(string, note, scaleLength).value, 2)}
                 </InputLabel>
             </ListItem>
         </>
@@ -119,7 +150,6 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
             >
                 <Stack
                     direction="column"
-                    alignItems="center"
                 >
                     <FormControl sx={{m: 2, p: 2, minWidth: 300, maxWidth: 320}} size="small">
                         <InputLabel id="select-gauges-label">Gauges</InputLabel>
@@ -172,6 +202,8 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                             ))}
                         </Select>
                     </FormControl>
+
+                    <ScaleLengthSelect />
                 </Stack>
 
                 <GuitarStrings stringSet={chosenStrings} tuning={chosenTuning} />
@@ -183,7 +215,7 @@ export function StringSet({stringSet, tuning}: {stringSet: GuitarStringSet, tuni
                         fontWeight: 'light'
                     }}
                 >
-                    Tension in Pound: {_.round(tensionOfStrings(chosenStrings.strings, chosenTuning.notes, 25.5).value, 2)}
+                    Tension in Pound: {_.round(tensionOfStrings(chosenStrings.strings, chosenTuning.notes, scaleLength).value, 2)}
                 </Typography>
             </Stack>
         </>
