@@ -34,7 +34,7 @@ export default function Home() {
                     </Button>
                 </Toolbar>
             </AppBar>
-            <main className="flex min-h-screen flex-col items-center justify-between p-24">
+            <main className="flex min-h-screen flex-col items-center justify-between p-8">
                 <StringSet stringSet={EBRegularSlinky} tuning={SixStandardETuning} />
             </main>
         </>
